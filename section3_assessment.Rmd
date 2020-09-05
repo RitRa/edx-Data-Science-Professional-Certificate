@@ -2,7 +2,15 @@
 title: "Section 3 Assesment"
 author: "Rita Raher"
 date: "9/5/2020"
-output: html_document
+output: 
+  html_document:
+    highlight: tango
+    theme: cerulean
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+  md_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
