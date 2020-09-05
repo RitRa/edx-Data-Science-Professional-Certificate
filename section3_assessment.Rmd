@@ -1,0 +1,221 @@
+---
+title: "Section 3 Assesment"
+author: "Rita Raher"
+date: "9/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Assessment due Oct 14, 2020 03:51 IST
+For questions 1-8, load the dslabs dataset heights:
+
+```{r cars, include=FALSE}
+library(dslabs)
+library(dplyr)
+data(heights)
+options(digits = 3) 
+
+heights
+```
+
+```{r summary }
+summary(heights)
+
+```
+## Question 1
+
+First, determine the average height in this dataset. Then create a logical vector ind with the indices for those individuals who are above average height.
+
+How many individuals in the dataset are above average height?
+
+
+```{r questionone }
+ind <- heights %>% 
+  filter(height > mean(height))
+
+NROW(ind)
+```
+
+## Question 2
+How many individuals in the dataset are above average height and are female?
+
+```{r question2 }
+summary(ind)
+
+```
+## Question 3
+If you use mean() on a logical (TRUE/FALSE) vector, it returns the proportion of observations that are TRUE.
+
+What proportion of individuals in the dataset are female?
+
+```{r question3 }
+
+women <- heights$sex == "Female"
+mean(women)
+
+```
+## Question 4
+This question takes you through three steps to determine the sex of the individual with the minimum height.
+
+```{r question4 }
+min(heights$height)
+
+```
+
+## Question 4b
+Use the match() function to determine the index of the first individual with the minimum height.
+```{r question4b }
+
+min_height <- min(heights$height)
+match(min_height, heights$height)
+```
+
+## Question 4c
+Subset the sex column of the dataset by the index in 4b to determine the individual’s sex.
+
+```{r question4c }
+subset(heights,heights$height ==50 )
+
+```
+
+## Question 5
+This question takes you through three steps to determine how many of the integer height values between the minimum and maximum heights are not actual heights of individuals in the heights dataset.
+
+Question 5a
+Determine the maximum height.
+Report 3 significant digits.
+
+
+```{r question5a }
+
+max_height <- max(heights$height)
+max_height
+```
+## Question 5b
+
+Which integer values are between the maximum and minimum heights? For example, if the minimum height is 10.2 and the maximum height is 20.8, your answer should be x <- 11:20 to capture the integers in between those values. (If either the maximum or minimum height are integers, include those values too.)
+
+Write code to create a vector x that includes the integers between the minimum and maximum heights (as numbers).
+There are multiple ways to solve this problem, but the grader expects you to use the format in the problem description. Your answer should have numbers and a colon (:), and it should not use other functions.
+
+```{r question5b }
+
+x <- (50:82)
+
+```
+
+## Question 5c
+
+How many of the integers in x are NOT heights in the dataset?
+Use the sum() and %in% functions in addition to the ! operator.
+
+
+```{r question5c }
+
+sum(!x %in% heights$height)
+
+```
+
+
+
+## Question 6
+Using the heights dataset, create a new column of heights in centimeters named ht_cm. Recall that 1 inch = 2.54 centimeters. Save the resulting dataset as heights2.
+
+```{r question6 }
+
+heights <-mutate(heights, ht_cm = height*2.54)
+heights[18,]
+
+```
+
+
+## Question 6b
+
+What is the mean height in centimeters?
+
+
+```{r question6b }
+
+mean_ht_cm <- mean(heights$ht_cm)
+mean_ht_cm
+
+```
+Create a data frame females by filtering the heights2 data to contain only female individuals.
+
+## Question 7a
+
+How many females are in the heights2 dataset?
+
+```{r question7a }
+
+females <- filter(heights, sex=="Female")
+  
+count(females)
+
+```
+
+
+## Question 7b
+What is the mean height of the females in centimeters?
+
+```{r question7b }
+mean(females$ht_cm)
+
+```
+
+## Question 8
+
+The olive dataset in dslabs contains composition in percentage of eight fatty acids found in the lipid fraction of 572 Italian olive oils:
+
+```{r question8 }
+
+library(dslabs)
+data(olive)
+head(olive)
+
+```
+
+Plot the percent palmitic acid versus palmitoleic acid in a scatterplot. What relationship do you see?
+
+```{r question8a }
+
+plot(olive$palmitic, olive$palmitoleic)
+
+```
+
+There is a positive linear relationship between palmitic and palmitoleic.
+
+
+## Question 9
+
+Create a histogram of the percentage of eicosenoic acid in olive.
+```{r question9 }
+
+hist(olive$eicosenoic)
+
+```
+
+The most common value of eicosenoic acid is below 0.05%
+
+
+## Question 10
+
+Make a boxplot of palmitic acid percentage in olive with separate distributions for each region.
+
+Which region has the highest median palmitic acid percentage?
+
+```{r question10 }
+
+boxplot(palmitic~region, olive)
+
+
+```
+
+Which region has the highest median palmitic acid percentage?
+Southern Italy
+
+Which region has the most variable palmitic acid percentage?
+Southern Italy
