@@ -1,0 +1,3 @@
+data(murders)
+head(murders)
+
